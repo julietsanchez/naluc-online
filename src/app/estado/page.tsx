@@ -11,7 +11,6 @@ import type { ApplicationStatusResponse, LoanInstallment } from "@/features/loan
 import { formatDNI, formatARS } from "@/lib/format";
 import {
   Search,
-  Loader2,
   CheckCircle,
   Clock,
   Banknote,
@@ -21,9 +20,6 @@ import {
   FileText,
   CalendarDays,
   ArrowLeft,
-  TrendingUp,
-  Wallet,
-  CircleDollarSign,
   Calendar,
 } from "lucide-react";
 
@@ -287,21 +283,6 @@ export default function EstadoPage() {
     setError(null);
   };
 
-  const paidCount =
-    result?.installments.filter((i) => i.status === "paid").length ?? 0;
-  const pendingCount =
-    result?.installments.filter((i) => i.status === "pending").length ?? 0;
-  const overdueCount =
-    result?.installments.filter((i) => i.status === "overdue").length ?? 0;
-  const totalPaid =
-    result?.installments
-      .filter((i) => i.status === "paid")
-      .reduce((acc, i) => acc + i.amount, 0) ?? 0;
-  const totalRemaining =
-    result?.installments
-      .filter((i) => i.status !== "paid")
-      .reduce((acc, i) => acc + i.amount, 0) ?? 0;
-
   const nextInstallment = result?.installments.find(
     (i) => i.status === "pending" || i.status === "overdue"
   );
@@ -409,165 +390,55 @@ export default function EstadoPage() {
               <TimelineStepper timeline={result.timeline} />
             </Card>
 
-            {/* ────── Cards de resumen (mobile-first) ────── */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <Card className="border border-primary-100/50 !p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center">
-                    <Wallet className="w-4 h-4 text-primary-600" />
-                  </div>
-                </div>
-                <p className="text-[11px] text-gray-500 uppercase tracking-wide font-medium">
-                  Préstamo
-                </p>
-                <p className="text-lg font-bold text-gray-900 mt-0.5">
-                  {formatARS(result.loanAmount)}
-                </p>
-              </Card>
-
-              <Card className="border border-primary-100/50 !p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center">
-                    <CircleDollarSign className="w-4 h-4 text-primary-600" />
-                  </div>
-                </div>
-                <p className="text-[11px] text-gray-500 uppercase tracking-wide font-medium">
-                  Cuota mensual
-                </p>
-                <p className="text-lg font-bold text-primary-600 mt-0.5">
-                  {formatARS(result.monthlyPayment, true)}
-                </p>
-              </Card>
-
-              <Card className="border border-green-100/50 !p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                  </div>
-                </div>
-                <p className="text-[11px] text-gray-500 uppercase tracking-wide font-medium">
-                  Pagadas
-                </p>
-                <p className="text-lg font-bold text-green-600 mt-0.5">
-                  {paidCount}/{result.installmentsCount}
-                </p>
-              </Card>
-
-              <Card className="border border-amber-100/50 !p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
-                    <Clock className="w-4 h-4 text-amber-600" />
-                  </div>
-                </div>
-                <p className="text-[11px] text-gray-500 uppercase tracking-wide font-medium">
-                  Pendientes
-                </p>
-                <p className="text-lg font-bold text-amber-600 mt-0.5">
-                  {pendingCount + overdueCount}
-                </p>
-              </Card>
-            </div>
-
-            {/* ────── Card resumen financiero + próxima cuota ────── */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Card className="border border-primary-100/50 !p-4">
+            {/* ────── Próximo pago ────── */}
+            {nextInstallment && (
+              <Card className="border border-amber-200/60 bg-gradient-to-br from-amber-50/50 to-white">
                 <div className="flex items-center gap-2 mb-3">
-                  <TrendingUp className="w-4 h-4 text-primary-600" />
+                  <CalendarDays className="w-4 h-4 text-amber-600" />
                   <span className="text-sm font-bold text-gray-900">
-                    Resumen financiero
+                    Próximo pago
                   </span>
+                  {nextInstallment.status === "overdue" && (
+                    <Badge variant="error">Vencida</Badge>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Total pagado</span>
-                    <span className="font-semibold text-green-600">
-                      {formatARS(totalPaid, true)}
+                    <span className="text-gray-500">Cuota</span>
+                    <span className="font-semibold text-gray-900">
+                      {nextInstallment.number}/{result.installmentsCount}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Saldo restante</span>
-                    <span className="font-semibold text-gray-900">
-                      {formatARS(totalRemaining, true)}
+                    <span className="text-gray-500">Monto</span>
+                    <span className="font-bold text-lg text-gray-900">
+                      {formatARS(nextInstallment.amount, true)}
                     </span>
                   </div>
-                  {/* Barra de progreso */}
-                  <div className="mt-2">
-                    <div className="flex justify-between text-[11px] text-gray-400 mb-1">
-                      <span>Progreso</span>
-                      <span>
-                        {result.installmentsCount > 0
-                          ? Math.round(
-                              (paidCount / result.installmentsCount) * 100
-                            )
-                          : 0}
-                        %
-                      </span>
-                    </div>
-                    <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-primary-500 to-green-500 rounded-full transition-all duration-500"
-                        style={{
-                          width: `${
-                            result.installmentsCount > 0
-                              ? (paidCount / result.installmentsCount) * 100
-                              : 0
-                          }%`,
-                        }}
-                      />
-                    </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Vencimiento</span>
+                    <span className="font-medium text-gray-700">
+                      {new Date(nextInstallment.dueDate).toLocaleDateString(
+                        "es-AR",
+                        { day: "2-digit", month: "short", year: "numeric" }
+                      )}
+                    </span>
                   </div>
                 </div>
+                <Button
+                  fullWidth
+                  size="sm"
+                  className="mt-3"
+                  onClick={() => {
+                    alert(
+                      `Funcionalidad de pago próximamente disponible.\nCuota ${nextInstallment.number} — ${formatARS(nextInstallment.amount, true)}`
+                    );
+                  }}
+                >
+                  Pagar ahora
+                </Button>
               </Card>
-
-              {nextInstallment && (
-                <Card className="border border-amber-200/60 bg-gradient-to-br from-amber-50/50 to-white !p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <CalendarDays className="w-4 h-4 text-amber-600" />
-                    <span className="text-sm font-bold text-gray-900">
-                      Próximo pago
-                    </span>
-                    {nextInstallment.status === "overdue" && (
-                      <Badge variant="error">Vencida</Badge>
-                    )}
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Cuota</span>
-                      <span className="font-semibold text-gray-900">
-                        {nextInstallment.number}/{result.installmentsCount}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Monto</span>
-                      <span className="font-bold text-lg text-gray-900">
-                        {formatARS(nextInstallment.amount, true)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Vencimiento</span>
-                      <span className="font-medium text-gray-700">
-                        {new Date(nextInstallment.dueDate).toLocaleDateString(
-                          "es-AR",
-                          { day: "2-digit", month: "short", year: "numeric" }
-                        )}
-                      </span>
-                    </div>
-                  </div>
-                  <Button
-                    fullWidth
-                    size="sm"
-                    className="mt-3"
-                    onClick={() => {
-                      alert(
-                        `Funcionalidad de pago próximamente disponible.\nCuota ${nextInstallment.number} — ${formatARS(nextInstallment.amount, true)}`
-                      );
-                    }}
-                  >
-                    Pagar ahora
-                  </Button>
-                </Card>
-              )}
-            </div>
+            )}
 
             {/* ────── Detalle de cuotas (desplegado por defecto) ────── */}
             <Card className="border border-primary-100/50">

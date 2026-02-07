@@ -319,8 +319,7 @@ export default function SolicitudDatosPage() {
                 <Input
                   label="CBU o Alias"
                   placeholder="22 dígitos o alias"
-                  hint="Opcional"
-                  infoTooltip="La cuenta debe estar a tu nombre"
+                  infoText="La cuenta debe estar a tu nombre"
                   error={errors.cbuOrAlias?.message}
                   {...register("cbuOrAlias")}
                 />
