@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" width="120" height="60">
+  <rect width="120" height="60" fill="#1e40af" rx="4"/>
+  <circle cx="35" cy="30" r="18" fill="white" opacity="0.2"/>
+  <text x="35" y="36" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">R</text>
+  <text x="75" y="35" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">RENAPER</text>
+  <text x="75" y="48" font-family="Arial, sans-serif" font-size="8" fill="rgba(255,255,255,0.9)" text-anchor="middle">Registro Nacional</text>
+</svg>
