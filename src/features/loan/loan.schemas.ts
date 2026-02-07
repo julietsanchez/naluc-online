@@ -52,8 +52,8 @@ export const applicantPersonalSchema = z.object({
   employmentStatus: z.string().min(1, "Seleccioná tu situación laboral"),
   monthlyIncome: z
     .number({ invalid_type_error: "Ingresá un monto válido" })
-    .min(1, "Ingresá tu ingreso mensual")
-    .max(999_999_999, "Valor no válido"),
+    .min(0, "El ingreso no puede ser negativo")
+    .max(99_999_999, "El ingreso no puede superar las 8 cifras"),
   bank: z.string().min(1, "Seleccioná tu banco"),
   cbuOrAlias: z
     .string()

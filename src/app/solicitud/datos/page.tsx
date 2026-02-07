@@ -302,7 +302,8 @@ export default function SolicitudDatosPage() {
                 <Input
                   label="Ingreso mensual (ARS)"
                   type="number"
-                  min={1}
+                  min={0}
+                  max={99999999}
                   step={1000}
                   placeholder="150000"
                   error={errors.monthlyIncome?.message}
@@ -318,7 +319,8 @@ export default function SolicitudDatosPage() {
                 <Input
                   label="CBU o Alias"
                   placeholder="22 dígitos o alias"
-                  hint="Opcional — la cuenta debe estar a tu nombre"
+                  hint="Opcional"
+                  infoTooltip="La cuenta debe estar a tu nombre"
                   error={errors.cbuOrAlias?.message}
                   {...register("cbuOrAlias")}
                 />
