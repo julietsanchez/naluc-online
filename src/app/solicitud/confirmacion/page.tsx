@@ -21,7 +21,7 @@ export default function SolicitudConfirmacionPage() {
   const displayId = start?.dni ? `${start.dni.replace(/\D/g, "")}/01` : "—";
 
   return (
-    <div className="space-y-6 max-w-lg mx-auto">
+    <div className="space-y-6">
       <Card className="text-center border border-primary-100/50">
         <div className="flex justify-center mb-4">
           <div className="rounded-full bg-green-100 p-4">
