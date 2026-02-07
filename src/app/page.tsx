@@ -12,7 +12,6 @@ import {
   Banknote,
   ClipboardList,
   Zap,
-  Heart,
   CheckCircle2,
 } from "lucide-react";
 
@@ -42,7 +41,7 @@ export default function HomePage() {
                 alt="NALUC"
                 width={260}
                 height={87}
-                className="h-20 sm:h-28 lg:h-40 xl:h-48 w-auto object-contain brightness-0 invert mx-auto drop-shadow-[0_0_35px_rgba(147,197,253,0.5)]"
+                className="h-28 sm:h-32 lg:h-40 xl:h-48 w-auto object-contain brightness-0 invert mx-auto drop-shadow-[0_0_35px_rgba(147,197,253,0.5)]"
                 priority
               />
             </div>
@@ -300,16 +299,6 @@ export default function HomePage() {
                   icon: Smartphone,
                   title: "100% Online",
                   desc: "Todo el proceso lo hacés desde tu celular o computadora, sin moverte de tu casa.",
-                },
-                {
-                  icon: Heart,
-                  title: "Pensado para vos",
-                  desc: "Montos y plazos flexibles que se adaptan a tu necesidad y presupuesto.",
-                },
-                {
-                  icon: Clock,
-                  title: "Acreditación rápida",
-                  desc: "Una vez aprobado, el dinero se acredita en tu cuenta en el día.",
                 },
               ] as const
             ).map(({ icon: Icon, title, desc }) => (
