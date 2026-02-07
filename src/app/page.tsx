@@ -21,7 +21,7 @@ export default function HomePage() {
     <>
       {/* ================================================================
           HERO SECTION
-          Inspirado en Credicuotas (simulador prominente) + Ualá (limpieza)
+          Texto centrado + badges + SimulatorCard debajo
           ================================================================ */}
       <section
         id="simulador"
@@ -33,55 +33,53 @@ export default function HomePage() {
         <div className="hero-blob w-[200px] h-[200px] bg-primary-300 top-1/2 left-1/3" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* ---------- Texto ---------- */}
-            <div className="text-center lg:text-left order-2 lg:order-1">
-              {/* Logo grande en blanco con resplandor */}
-              <div className="mb-8">
-                <Image
-                  src="/logo.png"
-                  alt="NALUC"
-                  width={260}
-                  height={87}
-                  className="h-20 sm:h-28 lg:h-40 xl:h-48 w-auto object-contain brightness-0 invert mx-auto lg:mx-0 drop-shadow-[0_0_35px_rgba(147,197,253,0.5)]"
-                  priority
-                />
-              </div>
-
-              <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/90 text-sm font-medium px-4 py-2 rounded-full border border-white/10">
-                <Zap className="w-4 h-4" />
-                100% Online y en minutos
-              </span>
-
-              <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold text-white leading-[1.08] tracking-tight">
-                ¡Tu préstamo{" "}
-                <span className="text-primary-300">al instante!</span>
-              </h1>
-
-              <p className="mt-6 text-lg sm:text-xl text-white/65 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                Pedí efectivo 100% online, recibilo en minutos y pagalo en
-                cuotas fijas. Sin papeleos, sin vueltas.
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 justify-center lg:justify-start">
-                {["Sin papeleos", "Cuotas fijas", "Respuesta inmediata"].map(
-                  (text) => (
-                    <div
-                      key={text}
-                      className="flex items-center gap-2 text-white/80"
-                    >
-                      <CheckCircle2 className="w-5 h-5 text-primary-300 shrink-0" />
-                      <span className="text-sm font-medium">{text}</span>
-                    </div>
-                  )
-                )}
-              </div>
+          {/* ---------- Texto centrado ---------- */}
+          <div className="text-center max-w-3xl mx-auto">
+            {/* Logo grande en blanco con resplandor */}
+            <div className="mb-8">
+              <Image
+                src="/logo.png"
+                alt="NALUC"
+                width={260}
+                height={87}
+                className="h-20 sm:h-28 lg:h-40 xl:h-48 w-auto object-contain brightness-0 invert mx-auto drop-shadow-[0_0_35px_rgba(147,197,253,0.5)]"
+                priority
+              />
             </div>
 
-            {/* ---------- Simulador ---------- */}
-            <div className="order-1 lg:order-2">
-              <SimulatorCard />
+            <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/90 text-sm font-medium px-4 py-2 rounded-full border border-white/10">
+              <Zap className="w-4 h-4" />
+              100% Online y en minutos
+            </span>
+
+            <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold text-white leading-[1.08] tracking-tight">
+              ¡Tu préstamo{" "}
+              <span className="text-primary-300">al instante!</span>
+            </h1>
+
+            <p className="mt-6 text-lg sm:text-xl text-white/65 max-w-lg mx-auto leading-relaxed">
+              Pedí efectivo 100% online, recibilo en minutos y pagalo en
+              cuotas fijas. Sin papeleos, sin vueltas.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 justify-center">
+              {["Sin papeleos", "Cuotas fijas", "Respuesta inmediata"].map(
+                (text) => (
+                  <div
+                    key={text}
+                    className="flex items-center gap-2 text-white/80"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-primary-300 shrink-0" />
+                    <span className="text-sm font-medium">{text}</span>
+                  </div>
+                )
+              )}
             </div>
+          </div>
+
+          {/* ---------- Simulador centrado debajo ---------- */}
+          <div className="mt-12 sm:mt-16 max-w-xl mx-auto">
+            <SimulatorCard />
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { Upload, X, CheckCircle } from "lucide-react";
+import { Upload, X, CheckCircle, Camera } from "lucide-react";
 
 interface FileUploadProps {
   label: string;
@@ -11,6 +11,9 @@ interface FileUploadProps {
   optional?: boolean;
   onFileSelect: (file: File | null) => void;
   error?: string;
+  /** En mobile, "environment" abre cámara trasera, "user" la frontal */
+  capture?: "user" | "environment";
+  required?: boolean;
 }
 
 export default function FileUpload({
@@ -20,6 +23,8 @@ export default function FileUpload({
   optional = false,
   onFileSelect,
   error,
+  capture,
+  required = false,
 }: FileUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -58,6 +63,7 @@ export default function FileUpload({
     <div>
       <label className="block text-sm font-semibold text-gray-700 mb-1">
         {label}
+        {required && <span className="text-red-500 ml-0.5">*</span>}
         {optional && <span className="text-gray-400 font-normal ml-1">(opcional)</span>}
       </label>
 
@@ -69,8 +75,14 @@ export default function FileUpload({
             error ? "border-red-400 bg-red-50/20" : "border-gray-300 bg-gray-50/50"
           }`}
         >
-          <Upload className="w-6 h-6 text-gray-400" />
-          <span className="text-sm text-gray-500">Tocá para subir archivo</span>
+          {capture ? (
+            <Camera className="w-6 h-6 text-gray-400" />
+          ) : (
+            <Upload className="w-6 h-6 text-gray-400" />
+          )}
+          <span className="text-sm text-gray-500">
+            {capture ? "Tocá para sacar foto" : "Tocá para subir archivo"}
+          </span>
         </button>
       ) : (
         <div className="flex items-center gap-3 p-3 rounded-xl border border-green-200 bg-green-50/50">
@@ -98,6 +110,7 @@ export default function FileUpload({
         onChange={handleChange}
         className="hidden"
         aria-hidden="true"
+        {...(capture ? { capture } : {})}
       />
 
       {error && (

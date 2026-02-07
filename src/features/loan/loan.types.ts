@@ -80,8 +80,30 @@ export interface SubmitApplicationResponse {
   applicationId: string;
 }
 
+export interface ApplicationTimelineStep {
+  step: string;
+  date: string;
+  completed: boolean;
+  active: boolean;
+}
+
+export interface LoanInstallment {
+  number: number;
+  amount: number;
+  dueDate: string;
+  status: "paid" | "pending" | "overdue";
+  paidDate?: string;
+}
+
 export interface ApplicationStatusResponse {
-  status: string;
+  found: boolean;
+  status: "solicitud_en_progreso" | "deposito_en_progreso" | "credito_confirmado" | "not_found";
+  applicantName: string;
+  dni: string;
   applicationId: string;
-  timeline?: { step: string; date: string; completed: boolean }[];
+  loanAmount: number;
+  installmentsCount: number;
+  monthlyPayment: number;
+  timeline: ApplicationTimelineStep[];
+  installments: LoanInstallment[];
 }

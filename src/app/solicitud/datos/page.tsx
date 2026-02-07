@@ -252,7 +252,9 @@ export default function SolicitudDatosPage() {
                 <FileUpload
                   label="DNI — Frente"
                   accept="image/*"
-                  hint="Foto clara del frente de tu DNI"
+                  hint="Sacá una foto clara del frente de tu DNI"
+                  required
+                  capture="environment"
                   onFileSelect={(file) => {
                     setDniFront(file);
                     setFileErrors((prev) => ({ ...prev, dniFront: undefined }));
@@ -262,7 +264,9 @@ export default function SolicitudDatosPage() {
                 <FileUpload
                   label="DNI — Dorso"
                   accept="image/*"
-                  hint="Foto clara del dorso de tu DNI"
+                  hint="Sacá una foto clara del dorso de tu DNI"
+                  required
+                  capture="environment"
                   onFileSelect={(file) => {
                     setDniBack(file);
                     setFileErrors((prev) => ({ ...prev, dniBack: undefined }));

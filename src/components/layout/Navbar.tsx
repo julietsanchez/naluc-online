@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, CreditCard } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/#simulador", label: "Simulador" },
@@ -52,8 +52,14 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          {/* Desktop CTAs */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Link href="/estado">
+              <Button variant="outline" size="sm" className="gap-1.5">
+                <CreditCard className="w-4 h-4" />
+                Consultar o Pagar mi crédito
+              </Button>
+            </Link>
             <a href="/#simulador">
               <Button variant="primary" size="sm">
                 Solicitar préstamo
@@ -92,7 +98,16 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <div className="pt-3 px-1">
+            <div className="pt-3 px-1 space-y-2">
+              <Link
+                href="/estado"
+                onClick={() => setMobileOpen(false)}
+              >
+                <Button variant="outline" fullWidth className="gap-1.5">
+                  <CreditCard className="w-4 h-4" />
+                  Consultar o Pagar mi crédito
+                </Button>
+              </Link>
               <a
                 href="/#simulador"
                 onClick={() => setMobileOpen(false)}

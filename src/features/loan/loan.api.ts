@@ -100,20 +100,53 @@ export async function submitApplication(_applicationId: string): Promise<SubmitA
   };
 }
 
-export interface GetStatusQuery {
-  dni: string;
-  applicationId: string;
-}
+export async function getApplicationStatus(dni: string): Promise<ApplicationStatusResponse> {
+  await delay(600);
 
-export async function getApplicationStatus(query: GetStatusQuery): Promise<ApplicationStatusResponse> {
-  await delay(MOCK_DELAY_MS);
+  const cleanDni = dni.replace(/\D/g, "");
+
+  if (cleanDni.length < 7) {
+    return {
+      found: false,
+      status: "not_found",
+      applicantName: "",
+      dni: cleanDni,
+      applicationId: "",
+      loanAmount: 0,
+      installmentsCount: 0,
+      monthlyPayment: 0,
+      timeline: [],
+      installments: [],
+    };
+  }
+
+  const today = new Date();
+  const installments: ApplicationStatusResponse["installments"] = [];
+  for (let i = 1; i <= 12; i++) {
+    const dueDate = new Date(today.getFullYear(), today.getMonth() + i, 15);
+    installments.push({
+      number: i,
+      amount: 28750,
+      dueDate: dueDate.toISOString(),
+      status: i <= 2 ? "paid" : i === 3 ? "pending" : "pending",
+      paidDate: i <= 2 ? new Date(today.getFullYear(), today.getMonth() + i - 1, 14).toISOString() : undefined,
+    });
+  }
+
   return {
-    status: "received",
-    applicationId: query.applicationId,
+    found: true,
+    status: "credito_confirmado",
+    applicantName: "Julieta Sánchez",
+    dni: cleanDni,
+    applicationId: "NAL-2026-00847",
+    loanAmount: 200000,
+    installmentsCount: 12,
+    monthlyPayment: 28750,
     timeline: [
-      { step: "Solicitud recibida", date: new Date().toISOString(), completed: true },
-      { step: "Validación de datos", date: "", completed: false },
-      { step: "Respuesta", date: "", completed: false },
+      { step: "Solicitud en progreso", date: new Date(today.getTime() - 5 * 86400000).toISOString(), completed: true, active: false },
+      { step: "Depósito en progreso", date: new Date(today.getTime() - 3 * 86400000).toISOString(), completed: true, active: false },
+      { step: "Confirmación de crédito", date: new Date(today.getTime() - 1 * 86400000).toISOString(), completed: true, active: true },
     ],
+    installments,
   };
 }
