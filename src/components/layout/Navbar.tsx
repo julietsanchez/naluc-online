@@ -67,20 +67,30 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            type="button"
-            className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 focus-visible-ring"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
-          >
-            {mobileOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
+          {/* Mobile: botón Consultar crédito visible + menú */}
+          <div className="flex lg:hidden items-center gap-1">
+            <Link
+              href="/estado"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold text-primary-600 hover:bg-primary-50 focus-visible-ring"
+              aria-label="Consultar o pagar mi crédito"
+            >
+              <CreditCard className="w-5 h-5 flex-shrink-0" />
+              <span>Mi crédito</span>
+            </Link>
+            <button
+              type="button"
+              className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 focus-visible-ring"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
+              aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+            >
+              {mobileOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
