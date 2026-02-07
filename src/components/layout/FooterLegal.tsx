@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 const FOOTER_LOGOS = [
-  { name: "CNV - Comisión Nacional de Valores", href: "#", src: "/footer-logos/cnv.svg" },
-  { name: "RENAPER - Registro Nacional de la Persona", href: "#", src: "/footer-logos/renaper.svg" },
-  { name: "SID - Sistema de Identificación Digital", href: "#", src: "/footer-logos/sid.svg" },
-  { name: "PDP - Protección de Datos Personales", href: "#", src: "/footer-logos/pdp.svg" },
-  { name: "Banco Central de la República Argentina", href: "#", src: "/footer-logos/bcra.svg" },
-  { name: "Data Fiscal - AFIP", href: "#", src: "/footer-logos/data-fiscal.svg" },
-  { name: "Usuarios Financieros", href: "#", src: "/footer-logos/usuarios-financieros.svg" },
+  { name: "CNV - Comisión Nacional de Valores", href: "https://www.cnv.gov.ar", src: "/footer-logos/logo CNV .jpg" },
+  { name: "RENAPER - Registro Nacional de la Persona", href: "https://www.argentina.gob.ar/interior/renaper", src: "/footer-logos/renaper logo.png" },
+  { name: "SID - Sistema de Identificación Digital", href: "https://www.argentina.gob.ar/sid", src: "/footer-logos/SID sistema de identidad digital.png" },
+  { name: "PDP - Protección de Datos Personales", href: "https://www.argentina.gob.ar/aaip", src: "/footer-logos/logopdp.png" },
+  { name: "Banco Central de la República Argentina", href: "https://www.bcra.gob.ar", src: "/footer-logos/bcralogo.png" },
+  { name: "Data Fiscal - AFIP", href: "https://www.afip.gob.ar", src: "/footer-logos/datafiscallogo.png" },
+  { name: "Usuarios Financieros", href: "https://www.usuariosfinancieros.gob.ar", src: "/footer-logos/usuarios financieros logo.png" },
 ] as const;
 
 export default function FooterLegal() {
@@ -74,14 +74,16 @@ export default function FooterLegal() {
         {/* Fila de logos de entidades financieras */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-8">
           {FOOTER_LOGOS.map((logo) => (
-            <Link
-              key={logo.name}
-              href={logo.href}
-              className="flex items-center justify-center transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-950 rounded"
-              aria-label={logo.name}
-            >
+<Link
+                key={logo.name}
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-950 rounded"
+                aria-label={logo.name}
+              >
               <Image
-                src={logo.src}
+                src={encodeURI(logo.src)}
                 alt={logo.name}
                 width={100}
                 height={50}
