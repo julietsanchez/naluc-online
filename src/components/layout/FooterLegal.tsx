@@ -71,26 +71,28 @@ export default function FooterLegal() {
           </p>
         </div>
 
-        {/* Fila de logos de entidades financieras */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-8">
-          {FOOTER_LOGOS.map((logo) => (
-<Link
+        {/* Fila de logos de entidades financieras - franja blanca de fondo */}
+        <div className="mt-10 bg-white py-6 px-4 sm:px-6 rounded-lg">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8">
+            {FOOTER_LOGOS.map((logo) => (
+              <Link
                 key={logo.name}
                 href={logo.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-950 rounded"
+                className="flex items-center justify-center w-24 h-14 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
                 aria-label={logo.name}
               >
-              <Image
-                src={encodeURI(logo.src)}
-                alt={logo.name}
-                width={100}
-                height={50}
-                className="h-12 w-auto object-contain max-w-[140px] brightness-0 invert opacity-90"
-              />
-            </Link>
-          ))}
+                <Image
+                  src={encodeURI(logo.src)}
+                  alt={logo.name}
+                  width={96}
+                  height={56}
+                  className="h-14 w-24 object-contain"
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>
