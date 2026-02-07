@@ -130,7 +130,7 @@ export default function HomePage() {
 
       {/* ================================================================
           ¿CÓMO FUNCIONA?
-          3 pasos numerados al estilo Moni + Credicuotas
+          3 pasos numerados al estilo Moni + Naluc
           ================================================================ */}
       <section id="como-funciona" className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
@@ -259,7 +259,7 @@ export default function HomePage() {
 
       {/* ================================================================
           ¿POR QUÉ ELEGIRNOS?
-          Sección oscura con glass cards (inspiración Credicuotas)
+          Sección oscura con glass cards (inspiración Naluc)
           ================================================================ */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950">
         <div className="hero-blob w-[400px] h-[400px] bg-primary-500 -top-20 right-1/4" />
@@ -319,7 +319,7 @@ export default function HomePage() {
 
       {/* ================================================================
           FAQ
-          Accordion al estilo Credicuotas / Ualá
+          Accordion al estilo Naluc / Ualá
           ================================================================ */}
       <section id="faq" className="bg-gray-50/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">

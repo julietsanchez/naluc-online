@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import FooterLegal from "@/components/layout/FooterLegal";
 import Footer from "@/components/layout/Footer";
 import ClientOnly from "@/components/ClientOnly";
 
@@ -36,6 +37,7 @@ export default function RootLayout({
         <main>
           <ClientOnly>{children}</ClientOnly>
         </main>
+        <FooterLegal />
         <Footer />
       </body>
     </html>
